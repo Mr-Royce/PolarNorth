@@ -1,7 +1,9 @@
-const SENSOR_WIDTH = 35.9;  // mm
-const SENSOR_HEIGHT = 23.9; // mm
-const POLARIS_DIST = 0.66;  // degrees
-const REF_TIME = new Date("2025-03-09T20:30:00-07:00"); // PDT
+console.log("script.js loaded");
+
+const SENSOR_WIDTH = 35.9;
+const SENSOR_HEIGHT = 23.9;
+const POLARIS_DIST = 0.66;
+const REF_TIME = new Date("2025-03-09T20:30:00-07:00");
 
 let focalLength = 85;
 let fovWidth, fovHeight, polarisX, polarisY;
@@ -16,7 +18,7 @@ function calculateFOV() {
 
 function getCurrentDateTime() {
     const year = parseInt(document.getElementById("year").value);
-    const month = parseInt(document.getElementById("month").value) - 1; // JS months are 0-based
+    const month = parseInt(document.getElementById("month").value) - 1;
     const day = parseInt(document.getElementById("day").value);
     let hour = parseInt(document.getElementById("hour").value);
     const minute = parseInt(document.getElementById("minute").value);
@@ -33,7 +35,7 @@ function getCurrentDateTime() {
 function plotSky() {
     if (typeof Plotly === 'undefined') {
         console.error("Plotly.js not loaded!");
-        alert("Plotly.js failed to load. Please check your internet connection or try refreshing the page.");
+        alert("Plotly.js failed to load. Check your internet connection and refresh.");
         return;
     }
 
@@ -127,7 +129,7 @@ function plotSky() {
         margin: { l: 50, r: 50, t: 80, b: 50 }
     };
 
-    console.log("Plotting with Plotly...");
+    console.log("Attempting to plot...");
     Plotly.newPlot('plot', traces, layout).then(() => {
         console.log("Plot rendered successfully");
     }).catch(err => {
@@ -136,10 +138,12 @@ function plotSky() {
 }
 
 function updateTime() {
+    console.log("updateTime called");
     plotSky();
 }
 
 function setCurrentTime() {
+    console.log("setCurrentTime called");
     const now = new Date();
     document.getElementById("year").value = now.getFullYear();
     document.getElementById("month").value = now.getMonth() + 1;
@@ -152,12 +156,14 @@ function setCurrentTime() {
 }
 
 function updateFocalLength() {
+    console.log("updateFocalLength called");
     focalLength = parseInt(document.getElementById("focal_combo").value);
     document.getElementById("focal_entry").value = focalLength;
     plotSky();
 }
 
 function setFocalLength() {
+    console.log("setFocalLength called");
     const newFocal = parseInt(document.getElementById("focal_entry").value);
     if (!isNaN(newFocal) && newFocal > 0) {
         focalLength = newFocal;
@@ -167,13 +173,19 @@ function setFocalLength() {
     }
 }
 
-// Check if Plotly is loaded and plot initially
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM fully loaded");
+    // Bind events programmatically
+    document.getElementById("setTimeBtn").addEventListener("click", updateTime);
+    document.getElementById("currentTimeBtn").addEventListener("click", setCurrentTime);
+    document.getElementById("focal_combo").addEventListener("change", updateFocalLength);
+    document.getElementById("setFocalBtn").addEventListener("click", setFocalLength);
+
     if (typeof Plotly !== 'undefined') {
         console.log("Plotly.js loaded successfully");
         plotSky();
     } else {
-        console.error("Plotly.js not loaded on DOMContentLoaded");
-        alert("Failed to load Plotly.js. Please ensure you have an internet connection and try refreshing.");
+        console.error("Plotly.js not loaded");
+        alert("Failed to load Plotly.js. Check your internet connection and refresh.");
     }
 });
