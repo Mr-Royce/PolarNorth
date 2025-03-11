@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polar North Visualizer</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Ensure Plotly.js is loaded from CDN -->
     <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
@@ -31,13 +30,13 @@
                     <option value="PM" selected>PM</option>
                 </select>
                 <br>
-                <button onclick="updateTime()">Set Time</button>
-                <button onclick="setCurrentTime()">Current Time</button>
+                <button id="setTimeBtn">Set Time</button>
+                <button id="currentTimeBtn">Current Time</button>
             </div>
             <div class="section">
                 <h3>Lens Focal Length</h3>
                 <label>Focal Length (mm):</label>
-                <select id="focal_combo" onchange="updateFocalLength()">
+                <select id="focal_combo">
                     <option value="14">14</option>
                     <option value="24">24</option>
                     <option value="35">35</option>
@@ -46,7 +45,7 @@
                     <option value="135">135</option>
                 </select>
                 <input type="number" id="focal_entry" min="1" value="85">
-                <button onclick="setFocalLength()">Set</button>
+                <button id="setFocalBtn">Set</button>
             </div>
             <div class="section">
                 <h3>Location</h3>
