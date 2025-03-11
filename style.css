@@ -13,11 +13,12 @@ body {
     padding: 20px;
 }
 
-#plot {
+.plot-container {
     width: 100%;
     max-width: 1200px;
-    height: 600px;
+    height: 600px; /* Explicit height to ensure Plotly renders */
     margin-bottom: 20px;
+    border: 1px solid #333; /* Visual cue to see the div */
 }
 
 .control-panel {
