@@ -126,11 +126,12 @@ function plotSky() {
         font: { color: 'white' },
         showgrid: true,
         legend: { bgcolor: '#1a1a1a', bordercolor: 'white', font: { color: 'white' } },
-        margin: { l: 50, r: 50, t: 80, b: 50 }
+        margin: { l: 40, r: 40, t: 60, b: 40 },
+        autosize: true
     };
 
     console.log("Attempting to plot...");
-    Plotly.newPlot('plot', traces, layout).then(() => {
+    Plotly.newPlot('plot', traces, layout, { responsive: true }).then(() => {
         console.log("Plot rendered successfully");
     }).catch(err => {
         console.error("Plotly error:", err);
@@ -175,7 +176,6 @@ function setFocalLength() {
 
 document.addEventListener("DOMContentLoaded", () => {
     console.log("DOM fully loaded");
-    // Bind events programmatically
     document.getElementById("setTimeBtn").addEventListener("click", updateTime);
     document.getElementById("currentTimeBtn").addEventListener("click", setCurrentTime);
     document.getElementById("focal_combo").addEventListener("change", updateFocalLength);
